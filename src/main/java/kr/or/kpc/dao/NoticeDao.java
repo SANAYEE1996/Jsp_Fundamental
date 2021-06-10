@@ -6,31 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import kr.or.kpc.dto.MemberDto;
+import kr.or.kpc.dto.NoticeDto;
 import kr.or.kpc.util.ConnLocator;
 
-public class MemberDao {
-	
+public class NoticeDao {
 	public static int result = 0;
 	
-	private static MemberDao single;
-	
-	private MemberDao() {
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			System.out.println("드라이브 로드 성공!!");
-		} catch (ClassNotFoundException e) {
-			System.err.println("드라이버 로드 실패 : " +e.getMessage());
-		}
+	private static NoticeDao single;
+
+	private NoticeDao() {
 	}
-	public static MemberDao getInstance() {
+
+	public static NoticeDao getInstance() {
 		if (single == null) {
-			single = new MemberDao();
+			single = new NoticeDao();
 		}
 		return single;
 	}
 	
-	public boolean insert(MemberDto dto) {
+	public boolean insert(NoticeDto dto) {
 		boolean isSuccess = false;
 		
 		Connection con = ConnLocator.getConnect();
@@ -41,15 +35,16 @@ public class MemberDao {
 			Statement stmt = con.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into member(num, name, addr, sex) ");
-			sql.append("values(?,?,?,?)");
+			sql.append("insert into notice(n_num,n_writer,n_title,n_content,n_regdate) ");
+			sql.append("values(?,?,?,?,NOW())");
 			
 			int index = 1;
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(index++, dto.getNum());
-			pstmt.setString(index++, dto.getName());
-			pstmt.setString(index++, dto.getAddr());
-			pstmt.setString(index++, dto.getSex());
+			pstmt.setString(index++, dto.getWriter());
+			pstmt.setString(index++, dto.getTitle());
+			pstmt.setString(index++, dto.getContent());
+			pstmt.setString(index++, dto.getRegdate());
 			
 			isSuccess = true;
 			result = pstmt.executeUpdate();
@@ -60,17 +55,12 @@ public class MemberDao {
 			System.err.println("데이터베이스 연결 실패 : " +e.getMessage());
 			System.err.println(e.getSQLState());
 		} finally {
-			try {
-				if(con != null) con.close(); // 반납
-				if(pstmt != null) pstmt.close();
-			} catch (SQLException e) {
-				System.err.println(e.getMessage());
-			}
+			closer(con, pstmt);
 		}
 		return isSuccess;
 	}
 
-	public boolean update(String addr, int num) {
+	public boolean update(String content, int num) {
 		boolean isSuccess = false;
 
 		Connection con = ConnLocator.getConnect();
@@ -81,11 +71,11 @@ public class MemberDao {
 			Statement stmt = con.createStatement();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("update member set addr = ? where num = ?");
+			sql.append("update notice set content = ? where num = ?");
 
 			pstmt = con.prepareStatement(sql.toString());
 			int index = 1;
-			pstmt.setString(index++, addr);
+			pstmt.setString(index++, content);
 			pstmt.setInt(index++, num);
 			isSuccess = true;
 			
@@ -97,14 +87,7 @@ public class MemberDao {
 			System.err.println("데이터베이스 연결 실패 : " + e.getMessage());
 			System.err.println(e.getSQLState());
 		} finally {
-			try {
-				if (con != null)
-					con.close();
-				if (pstmt != null)
-					pstmt.close();
-			} catch (SQLException e) {
-				System.err.println(e.getMessage());
-			}
+			closer(con, pstmt);
 		}
 		
 		return isSuccess;
@@ -121,7 +104,7 @@ public class MemberDao {
 			Statement stmt = con.createStatement();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("delete from member where num = ?");
+			sql.append("delete from notice where num = ?");
 
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, num);
@@ -135,21 +118,14 @@ public class MemberDao {
 			System.err.println("데이터베이스 연결 실패 : " + e.getMessage());
 			System.err.println(e.getSQLState());
 		} finally {
-			try {
-				if (con != null)
-					con.close();
-				if (pstmt != null)
-					pstmt.close();
-			} catch (SQLException e) {
-				System.err.println(e.getMessage());
-			}
+			closer(con, pstmt);
 		}
 		
 		return isSuccess;
 	}
 
-	public ArrayList<MemberDto> select(int i, int j) {
-		ArrayList<MemberDto> list = new ArrayList<>();
+	public ArrayList<NoticeDto> select(int i, int j) {
+		ArrayList<NoticeDto> list = new ArrayList<>();
 		Connection con = ConnLocator.getConnect();
 		
 		PreparedStatement pstmt = null;
@@ -158,8 +134,8 @@ public class MemberDao {
 		
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("select num,name,addr,sex ");
-			sql.append("from member ");
+			sql.append("select *");
+			sql.append("from notice ");
 			sql.append("order by num desc ");
 			sql.append("limit ?,?");
 			
@@ -171,28 +147,41 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				index = 1;
-				MemberDto d = new MemberDto();
+				NoticeDto d = new NoticeDto();
 				d.setNum(rs.getInt(index++));
-				d.setName(rs.getString(index++));
-				d.setAddr(rs.getString(index++));
-				d.setSex(rs.getString(index++));
+				d.setWriter(rs.getString(index++));
+				d.setTitle(rs.getString(index++));
+				d.setContent(rs.getString(index++));
+				d.setRegdate(rs.getString(index++));
 				list.add(d);
 			}
 		} catch (SQLException e) {
 			System.err.println("DB 연결 실패 : "+e.getMessage());
 		} finally {
-			try {
-				if(con != null) con.close();
-				if(pstmt != null) pstmt.close();
-				if(rs != null) rs.close();
-			}
-			catch(SQLException e) {
-				System.err.println(e.getMessage());
-			}
-			
+			closer(con, pstmt, rs);
 		}
 		
 		return list;
 	}
-
+	private void closer(Connection con, PreparedStatement pstmt) {
+		try {
+			if (con != null)
+				con.close();
+			if (pstmt != null)
+				pstmt.close();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	private void closer(Connection con, PreparedStatement pstmt, ResultSet rs) {
+		try {
+			if(con != null) con.close();
+			if(pstmt != null) pstmt.close();
+			if(rs != null) rs.close();
+		}
+		catch(SQLException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	
 }
