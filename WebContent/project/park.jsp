@@ -2,13 +2,13 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.or.kpc.dto.ParkDto"%>
 <%@ page pageEncoding="utf-8"%>
-<%@ include file="../inc/header.jsp"%>
+<%@ include file="../inc/header2.jsp"%>
 <%
-	ParkDto dto = new ParkDto();
-	ParkDao dao = ParkDao.getInstance();
-	
-	ArrayList<ParkDto> list = dao.resall();
-	int size = list.size();
+ParkDto dto = new ParkDto();
+ParkDao dao = ParkDao.getInstance();
+
+ArrayList<ParkDto> list = dao.resall();
+int size = list.size();
 %>
 <nav aria-lavel="breadcrumb">
 	<ol class="breadcrumb">
@@ -24,58 +24,41 @@
 			<!-- table start -->
 			<h3>공원 맵</h3>
 			<div class="table-responsive">
-				<%--pagination start--%>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled"><a class="page-link" href="#"
-							tabindex="-1" aria-disabled="true">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a>
-						</li>
-					</ul>
-				</nav>
-				<%--pagination end--%>
-				<div class="text-right">
-					<a class="btn btn-success" href="write.jsp" role="button">글쓰기</a>
-				</div>
-			</div>
-			<!-- table end -->
-			
-            <div style="width:300px; margin : 20px;">
-	            <label for="year">연령대</label>
-	            <select id="years">
-	              <option value="age">10</option>
-	              <option value="age">20</option>
-	              <option value="age">30</option>
-	              <option value="age">40</option>
-	              <option value="age">50</option>
-	              <option value="age">60</option>
-	              <option value="age">70</option>
-	              <option value="age">80</option>
-	            </select><br>
-	            <label for="addr">위치</label><br>
-	            <input type="text" id="address" placeholder="주소 입력 하거라" size=30>
-	            <button id="btn">START</button>
-          	</div>
-            
-			
-			<br><br>
-			<!-- 지도를 표시할 div 입니다 -->
-			<p style="margin-top:-12px">
-			    <em class="link">
-			        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-			            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-			        </a>
-			    </em>
-			</p>
-			<div id="map" style="width: 100%; height: 550px;"></div>
 
-			<script type="text/javascript"
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14f150998f9d2432105a8538735eee0f&libraries=services">
+
+				<div style="width: 300px; margin: 20px;">
+					<label for="year">연령대</label> <select class="form-control"
+						id="years">
+						<option value="age">10</option>
+						<option value="age">20</option>
+						<option value="age">30</option>
+						<option value="age">40</option>
+						<option value="age">50</option>
+						<option value="age">60</option>
+						<option value="age">70</option>
+						<option value="age">80</option>
+					</select><br> <label for="addr">위치</label><br> <input type="text"
+						class="form-control" id="address" placeholder="주소 입력 하거라" size=30>
+					<button id="btn" class="btn btn-outline-success"
+						style="margin-top: 10px;">START</button>
+				</div>
+				<br> <br>
+				<!-- 지도를 표시할 div 입니다 -->
+				<p style="margin-top: -12px">
+					<em class="link">
+						<h5>
+							혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
+							<button id="btn" class="btn btn-outline-danger"
+								href="javascript:void(0);"
+								onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">여기!</button>
+						</h5>
+					</em>
+				</p>
+				<div id="map" style="width: 100%; height: 550px;"></div>
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14f150998f9d2432105a8538735eee0f&libraries=services">
 			</script>
-			<script>
+				<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				mapOption = {
 					center : new kakao.maps.LatLng(37.56778694776533,
@@ -88,22 +71,19 @@
 				
 				// 마커를 표시할 위치와 title 객체 배열입니다 
 				var positions = [
-				<%
-					int index=0;
-					for(ParkDto dto1 : list){
-					index++;
-				%>
+					<%int index = 0;
+					for (ParkDto dto1 : list) {
+						index++;%>
 					    {
 					        title: '<%=dto1.getPname()%>', 
 					        latlng: new kakao.maps.LatLng(<%=dto1.getLan()%>, <%=dto1.getLen()%>)
-					    }<%if(size != index) out.print(",");%>
+					    }<%if (size != index)
+					out.print(",");%>
 			    	<%}%>
-				];
-				positions.add
+				];positions.add
+				
 				// 마커 이미지의 이미지 주소입니다
 				var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-				
-				
 				
 				for (var i = 0; i < positions.length; i ++) {
 				    
@@ -124,7 +104,6 @@
 				   var infowindow = new kakao.maps.InfoWindow({
 				        content: positions[i].title // 인포윈도우에 표시할 내용
 				    });
-
 				    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저 생성
 				    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록
 				    (function(marker, infowindow) {
@@ -132,7 +111,6 @@
 				        kakao.maps.event.addListener(marker, 'mouseover', function() {
 				            infowindow.open(map, marker);
 				        });
-
 				        //인포윈도우를 닫음
 				        kakao.maps.event.addListener(marker, 'mouseout', function() {
 				            infowindow.close();
@@ -163,12 +141,17 @@
 					        // 지도의 중심을 결과값으로 받은 위치로 이동
 					        map.setCenter(coords);
 					    }
-					     console.log($("#years option:selected").text());
 					});
 				});//클릭이벤트로 주소받고 좌표 검색 끝
 				
+				
 			</script>
+			</div>
 		</div>
 	</div>
+</div>
+
+<div class="text-center" style="margin: 50px 0 0 0">
+					<a class="btn btn-secondary" href="nowWeather.jsp" role="button">날씨정보</a>
 </div>
 <%@ include file="../inc/footer.jsp"%>
