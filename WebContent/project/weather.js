@@ -1,6 +1,7 @@
-// weather.js
+//weather.js
  
-const weather = document.querySelector(".js_weather");
+const weather = document.querySelector("#js_weather");
+const now = document.querySelector(".now");
 const maxmin = document.querySelector(".max_min_temp");
 
 const COORDS = "coords";
@@ -16,7 +17,8 @@ function getWeather(lat, lng) {
         const dis = json.weather[0].description;
         const max = json.main.temp_max;
         const min = json.main.temp_min;
-        weather.innerText = `지금 ${place}은 ${temperature}도이고 날씨는 ${dis}입니다.`
+        weather.innerHTML = `${place}`
+        now.innerText = `${temperature}도이고 날씨는 ${dis}입니다.`
         maxmin.innerText = `최고 온도는 ${max}도, 최저 온도는 ${min} 입니다.`
     })
 }

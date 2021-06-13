@@ -5,19 +5,17 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<title>Park Map</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="/js/jquery-3.6.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-	<title>Park Map</title>
 	<script>
+        
         $(function(){
             $('#btn').click(function(){
-                var address = encodeURIComponent('http://openapi.seoul.go.kr:8088/715142614f7170613131326449687761/json/RealtimeCityAir/1/25');
-                
                $.ajax({
-                   url : 'proxy.jsp?url='+address,
+                   url : 'proxy.jsp?url=http://openapi.seoul.go.kr:8088/715142614f7170613131326449687761/json/RealtimeCityAir/1/25',
                    type : 'get',
                    dataType : 'json',
                    error : function(){},
@@ -28,14 +26,18 @@
                 		   let PM10 = row.PM10;
                 		   let PM25 = row.PM25;
                 		   let IDEX_NM = row.IDEX_NM;
+                		   if($("#dist option:selected").text() == MSRSTE_NM){
+               		   		$('#sel').append(" 미세먼지 농도 :  "+PM10+" 초미세먼지 농도 : "
+               		   						+PM25+" 대기 상태 : "+IDEX_NM);
+               		   		break;
+               		   		}
                 	   }
                    }
                });
-            });//end of button event
-        	var city = $(js_weather).text();
-        	console.log(city);
-        });//end of onloading
+            });
+        });
     </script>
+    <script src = "http://openapi.seoul.go.kr:8088/715142614f7170613131326449687761/json/RealtimeCityAir/1/25?call=test"></script>
   </head>
   <body>
   	<!-- navbar start -->

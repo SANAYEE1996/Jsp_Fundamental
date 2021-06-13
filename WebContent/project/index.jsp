@@ -1,6 +1,6 @@
 <!-- step01_grid_lg.html -->
 <%@page pageEncoding="utf-8"%>
-<%@include file="../inc/header2.jsp"%>
+<%@include file="header.jsp"%>
 
 
 <div id="carouselExampleCaptions" class="carousel slide"
