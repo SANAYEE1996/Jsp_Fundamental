@@ -1,6 +1,6 @@
 <!-- template.html -->
 <%@ page pageEncoding="utf-8"%>
-<%@ include file="../inc/header.jsp"%>
+<%@ include file="header.jsp"%>
 <%
 	String tempPage = request.getParameter("page");
 	int cPage = 0;
@@ -70,7 +70,7 @@ $(function(){
 
 
 
-<%@ include file="../inc/footer.jsp"%>
+<%@ include file="footer.jsp"%>
 
 
 

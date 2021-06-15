@@ -76,8 +76,8 @@ public class ApiExamTranslateNmt {
         }
     }
 
-    private static String readBody(InputStream body){
-        InputStreamReader streamReader = new InputStreamReader(body);
+    private static String readBody(InputStream body) throws UnsupportedEncodingException{
+        InputStreamReader streamReader = new InputStreamReader(body,"utf-8");
 
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
             StringBuilder responseBody = new StringBuilder();
@@ -92,4 +92,8 @@ public class ApiExamTranslateNmt {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
     }
+   
+    public static void main(String[] args) {
+		System.out.println(new ApiExamTranslateNmt().translate("overcast clouds"));
+	}
 }

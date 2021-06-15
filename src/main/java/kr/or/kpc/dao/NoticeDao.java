@@ -233,42 +233,55 @@ public class NoticeDao {
 
 		return resultCount;
 	}
-	
 	public NoticeDto select(int num) {
-		NoticeDto list = null;
-		Connection con = ConnLocator.getConnect();
-		
+		NoticeDto dto = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
-		
 		ResultSet rs = null;
-		
 		try {
+			con = ConnLocator.getConnect();
+
 			StringBuilder sql = new StringBuilder();
-			sql.append("select n_num, n_writer, n_title, n_content, ");
+			sql.append("SELECT n_num, n_writer,n_title, n_content,  ");
 			sql.append("date_format(n_regdate,'%Y/%m/%d %h:%i') ");
-			sql.append("from notice ");
-			sql.append("where n_num = ?");
-			
+			sql.append("FROM notice ");
+			sql.append("WHERE n_num = ? ");
+
 			pstmt = con.prepareStatement(sql.toString());
+
 			int index = 1;
 			pstmt.setInt(index++, num);
-			
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				index = 1;
-				NoticeDto d = new NoticeDto();
-				num = rs.getInt(1);
-				d = new NoticeDto(rs.getInt(index++),rs.getString(index++),
-						rs.getString(index++),rs.getString(index++),
-						rs.getString(index++));
+				num = rs.getInt(index++);
+				String writer = rs.getString(index++);
+				String title = rs.getString(index++);
+				String content = rs.getString(index++);
+				String regdate = rs.getString(index++);
+				dto = new NoticeDto(num,writer,title,
+						content,regdate);
 			}
+
 		} catch (SQLException e) {
-			System.err.println("DB 연결 실패 : "+e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
-		
-		return list;
-		
+
+		return dto;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

@@ -2,7 +2,7 @@
 <%@page import="kr.or.kpc.dto.NoticeDto"%>
 <%@page import="kr.or.kpc.dao.NoticeDao"%>
 <%@ page pageEncoding="utf-8"%>
-<%@ include file="../inc/header.jsp"%>
+<%@ include file="header.jsp"%>
 <%
 String tempPage = request.getParameter("page");
 String tempNum = request.getParameter("num");
@@ -94,7 +94,7 @@ $(function(){
 	});
 });
 </script>
-<%@ include file="../inc/footer.jsp"%>
+<%@ include file="footer.jsp"%>
 
 
 

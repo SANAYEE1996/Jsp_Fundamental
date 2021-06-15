@@ -7,9 +7,6 @@ public class NoticeDto {
 	private String content;
 	private String regdate;
 	
-	public NoticeDto() {
-		super();
-	}
 	public NoticeDto(int num, String writer, String title, String content, String regdate) {
 		super();
 		this.num = num;
@@ -18,7 +15,10 @@ public class NoticeDto {
 		this.content = content;
 		this.regdate = regdate;
 	}
-	
+	public NoticeDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getNum() {
 		return num;
 	}
@@ -49,4 +49,5 @@ public class NoticeDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	
 }
