@@ -96,7 +96,6 @@ String s = null;
 </div>
 <!-- weather end -->
 <!-- container end -->
-
 <!-- map start -->
 <br><br>
 <div id="map" style="width: 95%; height: 550px; margin:0 auto"></div>
@@ -104,70 +103,93 @@ String s = null;
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14f150998f9d2432105a8538735eee0f&libraries=services">
 </script>
 <script>
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(37.56778694776533,
-					126.98229712096322), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		var map = new kakao.maps.Map(mapContainer, mapOption);
+		var latitude = null;
+		var longitude = null;
+		var mapContainer = null;
+		var map = null;
+		var positions = null;
+		var marker = null;
+		var infowindow = null;
+		var imageSrc = null;
+		var imageSize = null;
+		var markerImage = null;
 		
-		// 마커를 표시할 위치와 title 객체 배열입니다 
-		var positions = [
-			<%int index = 0;
-			for (ParkDto dto1 : list) {
-				index++;%>
-			    {
-			        title: '<%=dto1.getPname()%>', 
-			        latlng: new kakao.maps.LatLng(<%=dto1.getLan()%>, <%=dto1.getLen()%>)
-			    }<%if (size != index)
-			out.print(",");%>
-	    	<%}%>
-		];positions.add
-		
-		// 마커 이미지의 이미지 주소입니다
-		var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-		
-		for (var i = 0; i < positions.length; i ++) {
-		    
-		    // 마커 이미지의 이미지 크기 입니다
-		    var imageSize = new kakao.maps.Size(24, 35); 
-		    
-		    // 마커 이미지를 생성합니다    
-		    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-		    
-		    // 마커를 생성합니다
-		   var marker = new kakao.maps.Marker({
-		        map: map, // 마커를 표시할 지도
-		        position: positions[i].latlng, // 마커를 표시할 위치
-		        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-		        image : markerImage // 마커 이미지
+		if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition (function(pos) {
+		        latitude = pos.coords.latitude;
+		        longitude = pos.coords.longitude;
+		        //맵 생성
+				mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center : new kakao.maps.LatLng(latitude,longitude), // 현재 위치의 좌표를 지도 중심으로
+					level : 3 // 지도의 확대 레벨
+				};
+				
+				// 지도를 표시할 div와  지도 옵션으로  지도를 생성
+				map = new kakao.maps.Map(mapContainer, mapOption);
+				
+				// 마커를 표시할 위치와 title 객체 배열
+				positions = [
+					<%int index = 0;
+					for (ParkDto dto1 : list) {
+						index++;%>
+					    {
+					        title: '<%=dto1.getPname()%>', 
+					        latlng: new kakao.maps.LatLng(<%=dto1.getLan()%>, <%=dto1.getLen()%>)
+					    }<%if (size != index)
+					out.print(",");%>
+			    	<%}%>
+				];positions.add
+				
+				// 마커 이미지의 이미지 주소
+				imageSrc = "https://kr.seaicons.com/wp-content/uploads/2015/10/Park-icon.png"; 
+				
+				///// 1977 개 마커 생성 시작
+				for (var i = 0; i < positions.length; i ++) {
+				    
+				    // 마커 이미지의 이미지 크기
+				    imageSize = new kakao.maps.Size(50, 65
+				    		); 
+				    
+				    // 마커 이미지를 생성   
+				    markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+				    
+				    // 마커를 생성
+				   marker = new kakao.maps.Marker({
+				        map: map, // 마커를 표시할 지도
+				        position: positions[i].latlng, // 마커를 표시할 위치
+				        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시
+				        image : markerImage // 마커 이미지
+				    });
+				    
+				   infowindow = new kakao.maps.InfoWindow({
+				        content: positions[i].title // 인포윈도우에 표시할 내용
+				    });
+				    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저 생성
+				    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록
+				    (function(marker, infowindow) {
+				        //인포윈도우를 표시
+				        kakao.maps.event.addListener(marker, 'mouseover', function() {
+				            infowindow.open(map, marker);
+				        });
+				        //인포윈도우를 닫음
+				        kakao.maps.event.addListener(marker, 'mouseout', function() {
+				            infowindow.close();
+				        });
+				    })(marker, infowindow);
+				}
+				///// 1977 개 마커 생성 종료
+				
+				//1977개 마커를 맵에 표시.
+				marker.setMap(map);
 		    });
-		    
-		   var infowindow = new kakao.maps.InfoWindow({
-		        content: positions[i].title // 인포윈도우에 표시할 내용
-		    });
-		    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저 생성
-		    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록
-		    (function(marker, infowindow) {
-		        //인포윈도우를 표시
-		        kakao.maps.event.addListener(marker, 'mouseover', function() {
-		            infowindow.open(map, marker);
-		        });
-		        //인포윈도우를 닫음
-		        kakao.maps.event.addListener(marker, 'mouseout', function() {
-		            infowindow.close();
-		        });
-		    })(marker, infowindow);
+		} else {
+		    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
 		}
 		
-		marker.setMap(map);
-			
 		$('#btn').click(function(){
 				var geocoder = new kakao.maps.services.Geocoder();
-				// 클릭 이벤트로 주소 받고 좌표를 검색합니다	
+				// 클릭 이벤트로 주소 받고 좌표를 검색
 				geocoder.addressSearch($('#address').val(), function(result, status){
 			
 			    // 정상적으로 검색이 완료됐으면 
@@ -190,6 +212,7 @@ String s = null;
 				$(function(){
 					$('#sel').empty();
 					$('#sel2').empty();
+					$('#address').empty();
 				});
 			});//클릭이벤트로 주소받고 좌표 검색 끝
 </script>

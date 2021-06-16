@@ -41,6 +41,7 @@
 	              </div>
 	              <div class="form-group">
 	                <input type="submit" id="loginMember" class="btn btn-primary" value="Login" />
+	                <a href="" id="test">click me!</a>
 	              </div>
 	              
 	            </form>
@@ -49,4 +50,19 @@
 		<!-- col end -->
 	</div>
 	<!-- container end -->
+	<script>
+		$(function(){
+			$('#test').click(function(e){
+				e.preventDefault();
+				if(confirm('진짜로 이동하시겠습니까?')){
+					location.href="https://naver.com";
+				}
+			});
+			$('#loginMember').click(function(e){
+				e.preventDefault();
+				
+				f.submit();
+			});
+		});
+	</script>
 <%@ include file="../inc/footer.jsp" %>

@@ -343,5 +343,43 @@ public class CustomerDao {
 		return success;
 	}
 	
+	public CustomerDto getLogin(String email,String pwd) {
+		CustomerDto dto = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT c_num,c_email,c_pwd,c_name,c_status, ");
+			sql.append("DATE_FORMAT(c_regdate,'%Y/%d/%d') ");
+			sql.append("FROM customer ");
+			sql.append("WHERE c_email = ? ");
+			sql.append("AND c_pwd = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, email);
+			pstmt.setString(2, pwd);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int index = 1;
+				int num = rs.getInt(index++);
+				email = rs.getString(index++);
+				pwd = rs.getString(index++);
+				String name = rs.getString(index++);
+				String status = rs.getString(index++);
+				String regdate = rs.getString(index++);
+				dto = new CustomerDto(num,email,pwd,name,status,regdate);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return dto;
+	}
+	
 
 }

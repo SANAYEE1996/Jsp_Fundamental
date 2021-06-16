@@ -175,7 +175,7 @@ function getWeather(lat, lng) {
         	}
         }
         else if(iconid == "03d" || iconid == "03n"){
-        	commentmessage.innerText = `구름이 다소 있으나 `
+        	commentmessage.innerText = `구름이 조금 껴있으나 `
         	if(temperature >= 30){
         		commentmessage.innerText += ` 엄청 더우며`
         		if(hum >= 75){
@@ -420,7 +420,6 @@ function getWeather(lat, lng) {
         
     })
 }
-
 function saveCoords(coordsObj) {
     localStorage.setItem(COORDS, JSON.stringify(coordsObj))
 }
@@ -432,7 +431,7 @@ function handleGeoSuccess(position) {
         latitude,
         longitude
     }
-    saveCoords(coordsObj)
+    saveCoords(coordsObj);
     getWeather(latitude, longitude);
 }
 
