@@ -115,7 +115,7 @@ String s = null;
 		var markerImage = null;
 		
 		if (navigator.geolocation) {
-		    navigator.geolocation.getCurrentPosition (function(pos) {
+		    navigator.geolocation.watchPosition (function(pos) {
 		        latitude = pos.coords.latitude;
 		        longitude = pos.coords.longitude;
 		        //맵 생성
