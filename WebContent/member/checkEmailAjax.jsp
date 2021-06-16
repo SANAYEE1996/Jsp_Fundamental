@@ -6,8 +6,8 @@
 	boolean existed = dao.isExisted(email);
 	if(existed){
 %>	
-
+{"result":"fail"}
 <%}else{%>
 			
-
+{"result":"ok"}
 <%}%>

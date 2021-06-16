@@ -4,8 +4,8 @@
   	<!-- breadcrumb start -->
   	<nav aria-label="breadcrumb">
 	 <ol class="breadcrumb" style="background-color: green">
-    <li class="breadcrumb-item"><a href="/project/index.jsp" style="color:white">Home > </a></li>
-     <li class="breadcrumb-item">Exercise ></li>
+    <li class="breadcrumb-item"><a href="/project/program.jsp" style="color:white">Home</a></li>
+     <li class="breadcrumb-item">Exercise</li>
      <li class="breadcrumb-item">하체운동</li>
 	  </ol>
 	</nav>
@@ -87,6 +87,7 @@ margin: 0;
   transform: translate(-50%, -50%);
   z-index: 2
 }
+
 .circle{
 margin: 0;
   position: absolute;
@@ -94,7 +95,7 @@ margin: 0;
   left: 50%;
    -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  font-size: 20px;
+  font-size: 30px;
   z-index: 1;
   
 }
@@ -109,14 +110,14 @@ margin: 0;
     	<div class="col-md-12">
     	<div class="container1">
  	 <img src="https://i.stack.imgur.com/RR7ao.png" alt="" style="width: 30%; opacity:0.5;">
-	 <div class="circle">하루 20회 3세트</div>
+	 <div class="circle">하루 20회<br> 3세트</div>
  
 </div>
     	
     		
     		
     		<div class="card float-left" style="width: 30rem; height:25rem; margin :25px;" >
-			  <img src="https://mblogthumb-phinf.pstatic.net/20160317_226/bb_pilates_1458162448234zJWDX_GIF/KakaoTalk_20160317_003814904.gif?type=w2" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;" >
+			  <img src="https://mblogthumb-phinf.pstatic.net/MjAxNzEyMjRfNTUg/MDAxNTE0MDg3OTYwMTQ0.kw8T89IDTAXACmWxvXJJzVO15-zEzRV5jJt6aw4jY5Ug.l5vlbDXszAMidirsciF4C_4beIdjzQ5cz3WXHWCP8BMg.GIF.mjh1497/2.gif?type=w800" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;" >
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>스쿼트</strong></h3></p>
 			  </div>
@@ -126,7 +127,7 @@ margin: 0;
 </svg>
 			
     		<div class="card float-right" style="width: 30rem;height:25rem; margin :25px;">
-			  <img src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2xMI/image/dAKdjbT3xfkm4vXzF3dxJbupGQM.gif" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
+			  <img src=https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2xMI/image/dAKdjbT3xfkm4vXzF3dxJbupGQM.gif class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>런지</strong></h3></p>
 			  </div>
@@ -150,7 +151,7 @@ margin: 0;
 			
 			
     		<div class="card float-left" style="width: 30rem;height:25rem; margin :25px;">
-			  <img src="https://post-phinf.pstatic.net/MjAxNzA4MjhfNzQg/MDAxNTAzODkyOTEzNzU1.JeREIa-clfLjW7LvguuO2Ud7AdQvg3t8AkLE07Bber8g.sUw4JtI9MxHacWzxb-dgPOjJg7lcLHjMWqcGCnOF7sQg.GIF/1.gif?type=w1200" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
+			  <img src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2xMI/image/ctTH6gK2kUkKmcJJBTHuEIWELKg.gif" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>브릿지</strong></h3></p>
 			  </div>

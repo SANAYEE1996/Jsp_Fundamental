@@ -123,31 +123,30 @@
    }
    
 	#btn{
-	     margin: 0;
-	     position: absolute;
-	     border-radius: 12px;
-	     top:78% ;
-	     left: 48%;
-	     -ms-transform: translate(-50%, -50%);
-	     transform: translate(-50%, -50%);
-	   font-family: 'Gaegu', cursive;
-	     background-color: white;
-	   color:green;
-	     font-size:20px;
-	     width:70px;
+	    margin: 0;
+	    position: absolute;
+	    border-radius: 12px;
+	    top:68% ;
+	    left: 43%;
+	   	font-family: 'Gaegu', cursive;
+	    background-color: white;
+	   	color:green;
+	    font-size:20px;
+	    width:70px;
 	   }
    
    #btn:hover{
-background-color:green; 
-color: white; 
- box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-h3{
-   font-family: 'Gaegu', cursive;
+	background-color:green; 
+	color: white; 
+	 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+	}
+	
+	h3{
+   		font-family: 'Gaegu', cursive;
    }
 
    #address{
-   position:relative;
+   		position:relative;
    }
 </style>
   </head>
@@ -157,11 +156,11 @@ h3{
     <div class="Nav">
       <ul>
         <li><a href="program.jsp">HOME</a></li>
-        <li><a href="park.jsp">Program</a></li>
-         <li><a href="list.jsp">Notice</a></li>
+        <li><a href="park.jsp">PARK</a></li>
+         <li><a href="list.jsp">SUGGESTION</a></li>
         <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	         Exercise
+	         EXERCISE
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="upper.jsp">상체운동</a>

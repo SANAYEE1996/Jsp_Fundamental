@@ -4,8 +4,8 @@
   	<!-- breadcrumb start -->
   	<nav aria-label="breadcrumb">
 	 <ol class="breadcrumb" style="background-color: green">
-    <li class="breadcrumb-item"><a href="/project/index.jsp" style="color:white">Home > </a></li>
-     <li class="breadcrumb-item">Exercise ></li>
+    <li class="breadcrumb-item"><a href="/project/program.jsp" style="color:white">Home</a></li>
+     <li class="breadcrumb-item">Exercise</li>
      <li class="breadcrumb-item">상체운동</li>
 	  </ol>
 	</nav>
@@ -94,7 +94,7 @@ margin: 0;
   left: 50%;
    -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  font-size: 20px;
+  font-size: 30px;
   z-index: 1;
   
 }
@@ -108,15 +108,15 @@ margin: 0;
  	<div class="row">
     	<div class="col-md-12">
     	<div class="container1">
- 	 <img src="https://i.stack.imgur.com/RR7ao.png" alt="" style="width: 30% ;opacity:0.5;">
-	 <div class="circle">하루 20회 3세트</div>
+ 	 <img src="https://i.stack.imgur.com/RR7ao.png" alt="" style="width: 30%; opacity:0.5;">
+	 <div class="circle">하루 20회 <br>3세트</div>
  
 </div>
     	
     		
     		
     		<div class="card float-left" style="width: 30rem; height:25rem; margin :25px;" >
-			  <img src="https://t1.daumcdn.net/cfile/tistory/2464054B5564D7EA02" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;" >
+			  <img src="https://mblogthumb-phinf.pstatic.net/MjAxODAxMjdfMTM2/MDAxNTE3MDM1MjQ1OTky.dLAZecEqWyCAT4h6xFx_QePXuwqUb-O__ZzJWDXh3jYg.ED5KBQP6vEFn-FbEAqrC98xYUFHiXkr6oDSKHAYgEjgg.GIF.godwandow/%EC%82%AC%EC%9D%B4%EB%93%9C_%EB%A0%88%ED%84%B0%EB%9F%B4_%EB%A0%88%EC%9D%B4%EC%A6%88.gif?type=w800" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;" >
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>사이드 레터럴 레이즈</strong></h3></p>
 			  </div>
@@ -126,7 +126,7 @@ margin: 0;
 </svg>
 			
     		<div class="card float-right" style="width: 30rem;height:25rem; margin :25px;">
-			  <img src="https://t1.daumcdn.net/cfile/tistory/2649ED4A5564E1360E" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
+			  <img src="https://t1.daumcdn.net/cfile/tistory/2649ED4A5564E1360E" class="card-img-top" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>스트레이트 암 크런치</strong></h3></p>
 			  </div>
@@ -138,7 +138,7 @@ margin: 0;
 			
 			
     		<div class="card float-right" style="width: 30rem;height:25rem; margin :25px;">
-			  <img src="https://t1.daumcdn.net/cfile/tistory/2644E43A555B1BCB0C" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
+			  <img src="https://nitrocdn.com/SYGPvViysJqzkjGfJWgBtnjxdlDQKesZ/assets/static/source/rev-b404a3d/wp-content/uploads/2019/10/tricep_kickback.gif" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>덤벨킥백</strong></h3></p>
 			  </div>
@@ -150,7 +150,7 @@ margin: 0;
 			
 			
     		<div class="card float-left" style="width: 30rem;height:25rem; margin :25px;">
-			  <img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F22587C4055D079EB1E" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
+			  <img src="https://thumbs.gfycat.com/GlossySkinnyDuckbillcat-max-1mb.gif" class="card-img-top" style="width: 29rem; height:20rem; margin:0 auto;">
 			  <div class="card-body">
 			    <p class="card-text"><h3><strong>푸쉬업</strong></h3></p>
 			  </div>

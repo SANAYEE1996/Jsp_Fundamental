@@ -1,7 +1,7 @@
 <!-- template.html -->
-<%@page import="kr.or.kpc.dao.CustomerDao"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="kr.or.kpc.dto.CustomerDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.or.kpc.dao.CustomerDao"%>
 <%@ page pageEncoding="utf-8" %>
 <%@ include file="../inc/header.jsp" %>
 <%
@@ -16,15 +16,6 @@
 		cPage = 1;
 	}
 	
-	/*
-	cPage = 1   -> 0  , 10;
-	cPage = 2   -> 10 , 10;
-	cPage = 3   -> 20 , 10;
-	start = 0, 10 20   , displayCount : 10
-	An = a1 + (n-1)*d  
-		-> a1 : 0 , n->cPage , d : displayCount		
-	
-	*/
 	int displayCount = 4;
 	int pageDispalyCount = 3;
 	int totalRows = 0;//128
@@ -39,6 +30,7 @@
 			dao.select(start, displayCount);
 	
 %>
+	<%=session.getId() %>
   	<!-- breadcrumb start -->
   	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
@@ -72,75 +64,77 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  <%
-				  	if(list.size() != 0){
-				  		for(CustomerDto dto : list){
-				  %>
+				  	<%
+				  		if(list.size() != 0){
+				  			for(CustomerDto dto : list){
+				  	%>
 				    <tr>
 				      <th scope="row"><%=dto.getNum() %></th>
-				      <td></td>
-				      <td><a href="view.jsp?num=<%=dto.getNum()%>&page=<%=cPage%>"></a></td>
+				      <td><%=dto.getName() %></td>
+				      <td><a href="view.jsp?num=<%=dto.getNum() %>&page=<%=cPage %>"><%=dto.getEmail() %></a></td>
 				      <td><%=dto.getRegdate() %></td>
 				    </tr>
-				  <%	
-				  		} 
-				  	}else{
-				  %> <tr>
+				  	<%
+				  			}
+				  		}else{ 
+				  	%>
+				  	<tr>
 				      <td colspan='4'>데이터가 존재 하지 않습니다.</td>
 				    </tr>
-				  <%} %>
+				  	<%} %>
 				  </tbody>
 				</table>
 				<%--Pagination start --%>
-	<%
-		totalRows = dao.getRows();//128
+				<%
 		
-		if(totalRows%displayCount==0){
-			totalPage = totalRows/displayCount;
-		}else{
-			totalPage = totalRows/displayCount + 1;
-		}
-		if(totalPage == 0){
-			totalPage = 1;
-		}
-		if(cPage%pageDispalyCount == 0){
-			currentBlock = cPage/pageDispalyCount;
-		}else {
-			currentBlock = cPage/pageDispalyCount +1;
-		}
-			
-		if(totalPage%pageDispalyCount == 0){
-			totalBlock = totalPage/pageDispalyCount;
-		}else {
-			totalBlock = totalPage/pageDispalyCount +1;
-		}
-		startPage = 1 + (currentBlock -1)*pageDispalyCount;
-		endPage = pageDispalyCount + (currentBlock -1)*pageDispalyCount;
-		
-		if(currentBlock == totalBlock){
-			endPage = totalPage;
-		}
-	%>
+					totalRows = dao.getRows();				
+					if(totalRows%displayCount==0){
+						totalPage = totalRows/displayCount;
+					}else{
+						totalPage = totalRows/displayCount + 1;
+					}
+					if(totalPage == 0){
+						totalPage = 1;
+					}
+					if(cPage%pageDispalyCount == 0){
+						currentBlock = cPage/pageDispalyCount;
+					}else {
+						currentBlock = cPage/pageDispalyCount +1;
+					}
+						
+					if(totalPage%pageDispalyCount == 0){
+						totalBlock = totalPage/pageDispalyCount;
+					}else {
+						totalBlock = totalPage/pageDispalyCount +1;
+					}
+					
+					startPage = 1 + (currentBlock -1)*pageDispalyCount;
+					endPage = pageDispalyCount + (currentBlock -1)*pageDispalyCount;
+					
+					if(currentBlock == totalBlock){
+						endPage = totalPage;
+					}
+				%>
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">
 				    
-				    <li class="page-item disabled">
-				      <a class="page-link" href="list.jsp?page=" tabindex="-1" aria-disabled="true">Previous</a>
+				    <li class="page-item <%if(currentBlock==1){ %>disabled<%}%>">
+				      <a class="page-link" href="list.jsp?page=<%=startPage-1 %>" tabindex="-1" aria-disabled="true">Previous</a>
 				    </li>
 				    
+				    <%for(int i = startPage ;i<=endPage;i++){ %>
+				    <li class="page-item"><a class="page-link" href="list.jsp?page=<%=i %>"><%=i %></a></li>
+				    <%} %>
 				    
-				    <li class="page-item"><a class="page-link" href="list.jsp?page="></a></li>
-				    
-				    
-				    <li class="page-item  disabled">
-				      <a class="page-link" href="list.jsp?page=">Next</a>
+				    <li class="page-item  <%if(currentBlock==totalBlock){ %>disabled <%}%>">
+				      <a class="page-link" href="list.jsp?page=<%=endPage+1%>">Next</a>
 				    </li>
 				    
 				  </ul>
 				</nav>
 				<%--Pagination end --%>
 				<div class="text-right">
-					<a class="btn btn-success" href="join.jsp?page=" role="button">회원가입</a>
+					<a class="btn btn-success" href="join.jsp?page=<%=cPage %>" role="button"><i class="bi bi-pen"></i> 회원가입</a>
 				</div>
 				</div>
 				<%-- table end--%>

@@ -298,41 +298,49 @@ public class CustomerDao {
 		return dto;
 	}
 	
-	public boolean update(int num, String email, String pwd) {
-		boolean isSuccess = false;
-		
-		Connection con = ConnLocator.getConnect();
+	public boolean update(CustomerDto dto) {
+		boolean success = false;
+		Connection con = null;
 		PreparedStatement pstmt = null;
-		
 		try {
-			
-			Statement stmt = con.createStatement();
-			
+			con = ConnLocator.getConnect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("");
-			sql.append("");
-			
-			int index = 1;
+			sql.append("UPDATE customer ");
+			sql.append("SET c_name =?,  ");
+			if(dto.getPwd() != null) {
+				sql.append("c_pwd = ?, ");
+			}
+			sql.append("c_status=? ");
+			sql.append("WHERE c_num = ? ");
+
 			pstmt = con.prepareStatement(sql.toString());
-			
-			
-			isSuccess = true;
-			result = pstmt.executeUpdate();
-			System.out.println("갱신된 행의 개수 : " +result);
-			
-			stmt.close();
+			int index = 1;
+			pstmt.setString(index++, dto.getName());
+			if(dto.getPwd() != null) {
+				pstmt.setString(index++, dto.getPwd());
+			}
+			pstmt.setString(index++, dto.getStatus());
+			pstmt.setInt(index++, dto.getNum());
+
+			pstmt.executeUpdate();
+			success = true;
+
 		} catch (SQLException e) {
-			System.err.println("데이터베이스 연결 실패 : " +e.getMessage());
-			System.err.println(e.getSQLState());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
-				if(con != null) con.close(); // 반납
-				if(pstmt != null) pstmt.close();
+				if (con != null)
+					con.close();
+				if (pstmt != null)
+					pstmt.close();
 			} catch (SQLException e) {
-				System.err.println(e.getMessage());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
-		return isSuccess;
+
+		return success;
 	}
 	
 
